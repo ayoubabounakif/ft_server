@@ -1,6 +1,6 @@
 # Creating and running an image
 # docker build -t aabounak .
-# docker run -it -p 80:80 -p 443:443 aabounak
+# docker run -it -p 80:80 -p 443:443 -d aabounak
 # docker start {CONTAINER ID}
 # docker exec -it {CONTAINER ID} bash
 
@@ -21,7 +21,6 @@ apt update ; apt install -y mysql-server
 
 # Starting MySQL
 service mysql start
-mysql_secure_installation	# This script will take you through a series of prompts
 
 # Step 3: Install and Configure phpMyAdmin
 cd /var/www/html
@@ -106,6 +105,13 @@ chown -R www-data:www-data /var/www/html
 
 # Step 7: Setting up the WordPress Configuration File
 wget https://api.wordpress.org/secret-key/1.1/salt/
+mv /srcs/default /etc/nginx/sites-available/
+mv /srcs/config.inc.php /var/www/html/phpmyadmin/
+mv /srcs/wp-config.php /var/www/html/
+mv /srcs/ssl/* /etc/ssl/
+
+echo "----- DONE [OK] -----"
+
 # cat index.html
 # vi /var/www/html/wp-config.php	# Paste
 
